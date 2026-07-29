@@ -1,0 +1,118 @@
+<nav class="navbar">
+  <div class="logo-container">
+    <div class="brand-wrap">
+      <span class="logo-text">GABRIEL SOUSA</span>
+      <span class="logo-sub">SYSTEMS ARCHITECT</span>
+    </div>
+  </div>
+
+  <button class="menu-toggle" (click)="toggleMenu()" [class.active]="isMenuOpen()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="nav-menu" [class.open]="isMenuOpen()">
+    <a href="#architecture" (click)="isMenuOpen.set(false)">{{ t().nav.phil }}</a>
+    <a href="#stack" (click)="isMenuOpen.set(false)">{{ t().nav.stack }}</a>
+    <a href="#aimis" (click)="isMenuOpen.set(false)">{{ t().nav.aimis }}</a>
+
+    <div class="menu-footer-mobile">
+      <button (click)="toggleLang()" class="lang-switcher">
+        {{ lang() === 'pt' ? 'EN' : 'PT' }}
+      </button>
+      <a href="https://github.com/GabrielBRS" target="_blank" class="social-link">GITHUB</a>
+      <a href="https://linkedin.com/in/gabriel-barros-rodrigues-de-sousa" target="_blank" class="social-link highlight-social">LINKEDIN</a>
+    </div>
+  </div>
+</nav>
+
+<main class="main-frame">
+  <section id="hero" class="hero-full">
+    <div class="hero-content">
+      <h2 class="pre-title">{{ t().hero.pre }}</h2>
+      <h1>{{ t().hero.title }} <br><span class="highlight">{{ t().hero.highlight }}</span></h1>
+      <p class="hero-statement">{{ t().hero.desc }}</p>
+
+      <div class="hero-metrics">
+        <div class="metric"><span>8+</span> {{ t().hero.exp }}</div>
+        <div class="metric"><span>HPC</span> Specialist</div>
+        <div class="metric"><span>SRE</span> Focused</div>
+      </div>
+
+      <div class="cta-group">
+        <a href="https://linkedin.com/in/gabriel-barros-rodrigues-de-sousa" target="_blank" class="btn-main">{{ t().hero.connect }}</a>
+        <a href="https://github.com/GabrielBRS" target="_blank" class="btn-outline">{{ t().hero.explore }}</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="architecture" class="arch-section">
+    <h2 class="section-label">{{ t().arch.label }}</h2>
+    <div class="arch-grid">
+      <div class="arch-item">
+        <h3>{{ t().arch.item3.t }}</h3>
+        <p>{{ t().arch.item3.d }}</p>
+      </div>
+      <div class="arch-item">
+        <h3>{{ t().arch.item2.t }}</h3>
+        <p>{{ t().arch.item2.d }}</p>
+      </div>
+      <div class="arch-item">
+        <h3>{{ t().arch.item1.t }}</h3>
+        <p>{{ t().arch.item1.d }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack" class="section-container">
+    <h2 class="section-label">{{ t().stack.label }}</h2>
+    <div class="tech-matrix">
+      <div class="matrix-column">
+        <h3>{{ t().stack.core }}</h3>
+        <div class="tech-tag-group">
+          <span class="tech-tag">Java 17+</span> <span class="tech-tag">C++</span> <span class="tech-tag">Python</span>
+          <span class="tech-tag">Spring Boot</span> <span class="tech-tag">Quarkus</span> <span class="tech-tag">EJB</span>
+        </div>
+      </div>
+      <div class="matrix-column">
+        <h3>{{ t().stack.cloud }}</h3>
+        <div class="tech-tag-group">
+          <span class="tech-tag">Kubernetes</span> <span class="tech-tag">Rancher</span> <span class="tech-tag">AWS</span>
+          <span class="tech-tag">Terraform</span> <span class="tech-tag">Ansible</span>
+        </div>
+      </div>
+      <div class="matrix-column">
+        <h3>{{ t().stack.ai }}</h3>
+        <div class="tech-tag-group">
+          <span class="tech-tag">NVIDIA Triton</span> <span class="tech-tag">CUDA</span> <span class="tech-tag">PyTorch</span>
+          <span class="tech-tag">ONNX</span> <span class="tech-tag">TensorRT</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="aimis" class="project-showcase">
+    <div class="project-inner">
+      <span class="label">{{ t().aimis.tag }}</span>
+      <h2>{{ t().aimis.label }}</h2>
+      <p class="project-long-desc">{{ t().aimis.desc }}</p>
+      <ul class="tech-list-horizontal">
+        <li>{{ t().aimis.feature1 }}</li>
+        <li>{{ t().aimis.feature2 }}</li>
+        <li>{{ t().aimis.feature3 }}</li>
+      </ul>
+    </div>
+  </section>
+
+<footer class="main-footer">
+  <div class="footer-content">
+    <p class="footer-location">{{ t().footer.location }}</p>
+    <div class="footer-links">
+      <a href="https://github.com/GabrielBRS" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/gabriel-barros-rodrigues-de-sousa" target="_blank">LinkedIn</a>
+    </div>
+    <p class="footer-legal">{{ t().footer.legal }}</p>
+  </div>
+</footer>
+</main>
