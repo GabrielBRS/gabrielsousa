@@ -1,3 +1,29 @@
-html, body {
+/* Fontes self-hosted via @fontsource — carregadas pelo array "styles" do
+   angular.json (sem @import do Sass, sem aviso de deprecação):
+     node_modules/@fontsource-variable/archivo/index.css
+     node_modules/@fontsource-variable/public-sans/index.css
+     node_modules/@fontsource/ibm-plex-mono/{400,500,600}.css
+   Requer: npm i @fontsource-variable/archivo @fontsource-variable/public-sans @fontsource/ibm-plex-mono */
+
+html {
+  scroll-behavior: smooth;
+  /* Âncoras param abaixo da navbar fixa */
+  scroll-padding-top: 96px;
+}
+
+html,
+body {
   margin: 0;
+  background-color: #0a0e17; /* evita flash branco antes da hidratação */
+}
+
+::selection {
+  background: rgba(240, 160, 60, 0.28);
+  color: #e9eef6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

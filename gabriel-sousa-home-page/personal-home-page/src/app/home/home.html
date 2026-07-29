@@ -1,118 +1,254 @@
-<nav class="navbar">
-  <div class="logo-container">
-    <div class="brand-wrap">
-      <span class="logo-text">GABRIEL SOUSA</span>
-      <span class="logo-sub">SYSTEMS ARCHITECT</span>
-    </div>
+<a class="skip-link" href="#conteudo">{{ t().a11y.skip }}</a>
+
+<header class="navbar">
+  <div class="brand-wrap">
+    <span class="logo-text">GABRIEL SOUSA</span>
+    <span class="logo-sub">AI ENGINEER · TECH LEAD</span>
   </div>
 
-  <button class="menu-toggle" (click)="toggleMenu()" [class.active]="isMenuOpen()">
+  <button
+    class="menu-toggle"
+    type="button"
+    (click)="toggleMenu()"
+    [class.active]="isMenuOpen()"
+    [attr.aria-expanded]="isMenuOpen()"
+    [attr.aria-label]="t().a11y.menu"
+    aria-controls="nav-menu"
+  >
     <span></span>
     <span></span>
     <span></span>
   </button>
 
-  <div class="nav-menu" [class.open]="isMenuOpen()">
-    <a href="#architecture" (click)="isMenuOpen.set(false)">{{ t().nav.phil }}</a>
-    <a href="#stack" (click)="isMenuOpen.set(false)">{{ t().nav.stack }}</a>
-    <a href="#aimis" (click)="isMenuOpen.set(false)">{{ t().nav.aimis }}</a>
+  <nav id="nav-menu" class="nav-menu" [class.open]="isMenuOpen()">
+    <a href="#engenharia" (click)="closeMenu()">{{ t().nav.eng }}</a>
+    <a href="#stack" (click)="closeMenu()">{{ t().nav.stack }}</a>
+    <a href="#projetos" (click)="closeMenu()">{{ t().nav.projects }}</a>
+    <a href="#trajetoria" (click)="closeMenu()">{{ t().nav.track }}</a>
+    <a href="#formacao" (click)="closeMenu()">{{ t().nav.education }}</a>
 
-    <div class="menu-footer-mobile">
-      <button (click)="toggleLang()" class="lang-switcher">
+    <div class="menu-footer">
+      <button
+        type="button"
+        class="lang-switcher"
+        (click)="switchLang()"
+        [attr.aria-label]="t().a11y.langSwitch"
+      >
         {{ lang() === 'pt' ? 'EN' : 'PT' }}
       </button>
-      <a href="https://github.com/GabrielBRS" target="_blank" class="social-link">GITHUB</a>
-      <a href="https://linkedin.com/in/gabriel-barros-rodrigues-de-sousa" target="_blank" class="social-link highlight-social">LINKEDIN</a>
+      <a
+        href="https://github.com/GabrielBRS"
+        target="_blank"
+        rel="noopener"
+        class="social-link"
+        >GITHUB</a
+      >
+      <a
+        href="https://linkedin.com/in/gabriel-barros-rodrigues-de-sousa"
+        target="_blank"
+        rel="noopener"
+        class="social-link highlight-social"
+        >LINKEDIN</a
+      >
     </div>
-  </div>
-</nav>
+  </nav>
+</header>
 
-<main class="main-frame">
-  <section id="hero" class="hero-full">
+<main id="conteudo" class="main-frame">
+  <!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+  <section id="hero" class="hero" aria-labelledby="hero-title">
     <div class="hero-content">
-      <h2 class="pre-title">{{ t().hero.pre }}</h2>
-      <h1>{{ t().hero.title }} <br><span class="highlight">{{ t().hero.highlight }}</span></h1>
+      <p class="pre-title">{{ t().hero.pre }}</p>
+      <h1 id="hero-title">
+        {{ t().hero.title }}
+        <span class="highlight">{{ t().hero.highlight }}</span>
+      </h1>
       <p class="hero-statement">{{ t().hero.desc }}</p>
 
-      <div class="hero-metrics">
-        <div class="metric"><span>8+</span> {{ t().hero.exp }}</div>
-        <div class="metric"><span>HPC</span> Specialist</div>
-        <div class="metric"><span>SRE</span> Focused</div>
+      <div class="hero-metrics" role="list">
+        @for (m of t().hero.metrics; track m.label) {
+          <div class="metric" role="listitem">
+            <span>{{ m.value }}</span> {{ m.label }}
+          </div>
+        }
       </div>
 
       <div class="cta-group">
-        <a href="https://linkedin.com/in/gabriel-barros-rodrigues-de-sousa" target="_blank" class="btn-main">{{ t().hero.connect }}</a>
-        <a href="https://github.com/GabrielBRS" target="_blank" class="btn-outline">{{ t().hero.explore }}</a>
+        <a
+          href="https://linkedin.com/in/gabriel-barros-rodrigues-de-sousa"
+          target="_blank"
+          rel="noopener"
+          class="btn-main"
+          >{{ t().hero.connect }}</a
+        >
+        <a
+          href="https://github.com/GabrielBRS"
+          target="_blank"
+          rel="noopener"
+          class="btn-outline"
+          >{{ t().hero.explore }}</a
+        >
       </div>
+
+      <p class="consult-line">
+        {{ t().hero.consultPrefix }}
+        <a href="https://ortzion.com" target="_blank" rel="noopener">{{
+          t().hero.consultLink
+        }}</a>
+      </p>
     </div>
+
+    <!-- Assinatura visual: um trace de decisão de agente, como em Langfuse/OTel -->
+    <aside class="trace-card" aria-label="Distributed trace — agent decision">
+      <div class="trace-head">
+        <span class="trace-dot" aria-hidden="true"></span>
+        <span class="trace-title">{{ t().trace.panelTitle }}</span>
+        <span class="trace-cols"
+          >{{ t().trace.colSpan }} · {{ t().trace.colDur }}</span
+        >
+      </div>
+
+      <ol class="trace-rows">
+        @for (row of traceRows; track row.name; let i = $index) {
+          <li class="trace-row" [style.--i]="i">
+            <span class="trace-name">{{ row.name }}</span>
+            <span class="trace-bar-track">
+              <span
+                class="trace-bar"
+                [class.is-tool]="row.kind === 'tool'"
+                [class.is-llm]="row.kind === 'llm'"
+                [style.--bar]="row.bar + '%'"
+              ></span>
+            </span>
+            <span class="trace-ms">{{ row.ms }}<em>ms</em></span>
+          </li>
+        }
+      </ol>
+
+      <p class="trace-caption">{{ t().trace.caption }}</p>
+    </aside>
   </section>
 
-  <section id="architecture" class="arch-section">
-    <h2 class="section-label">{{ t().arch.label }}</h2>
+  <!-- ═══════════════════════════ ENGENHARIA ═══════════════════════════ -->
+  <section id="engenharia" class="section" aria-labelledby="eng-eyebrow">
+    <h2 id="eng-eyebrow" class="eyebrow">{{ t().eng.eyebrow }}</h2>
+    <p class="section-lead">{{ t().eng.lead }}</p>
+
     <div class="arch-grid">
-      <div class="arch-item">
-        <h3>{{ t().arch.item3.t }}</h3>
-        <p>{{ t().arch.item3.d }}</p>
-      </div>
-      <div class="arch-item">
-        <h3>{{ t().arch.item2.t }}</h3>
-        <p>{{ t().arch.item2.d }}</p>
-      </div>
-      <div class="arch-item">
-        <h3>{{ t().arch.item1.t }}</h3>
-        <p>{{ t().arch.item1.d }}</p>
-      </div>
+      @for (item of t().eng.items; track item.n) {
+        <article class="arch-item">
+          <span class="arch-n">{{ item.n }}</span>
+          <h3>{{ item.t }}</h3>
+          <p>{{ item.d }}</p>
+        </article>
+      }
     </div>
   </section>
 
-  <section id="stack" class="section-container">
-    <h2 class="section-label">{{ t().stack.label }}</h2>
+  <!-- ══════════════════════════════ STACK ═════════════════════════════ -->
+  <section id="stack" class="section" aria-labelledby="stack-eyebrow">
+    <h2 id="stack-eyebrow" class="eyebrow">{{ t().stack.eyebrow }}</h2>
+
     <div class="tech-matrix">
-      <div class="matrix-column">
-        <h3>{{ t().stack.core }}</h3>
-        <div class="tech-tag-group">
-          <span class="tech-tag">Java 17+</span> <span class="tech-tag">C++</span> <span class="tech-tag">Python</span>
-          <span class="tech-tag">Spring Boot</span> <span class="tech-tag">Quarkus</span> <span class="tech-tag">EJB</span>
+      @for (col of t().stack.columns; track col.title) {
+        <div class="matrix-column">
+          <h3>{{ col.title }}</h3>
+          <div class="tech-tag-group">
+            @for (tag of col.tags; track tag) {
+              <span class="tech-tag">{{ tag }}</span>
+            }
+          </div>
         </div>
-      </div>
-      <div class="matrix-column">
-        <h3>{{ t().stack.cloud }}</h3>
-        <div class="tech-tag-group">
-          <span class="tech-tag">Kubernetes</span> <span class="tech-tag">Rancher</span> <span class="tech-tag">AWS</span>
-          <span class="tech-tag">Terraform</span> <span class="tech-tag">Ansible</span>
-        </div>
-      </div>
-      <div class="matrix-column">
-        <h3>{{ t().stack.ai }}</h3>
-        <div class="tech-tag-group">
-          <span class="tech-tag">NVIDIA Triton</span> <span class="tech-tag">CUDA</span> <span class="tech-tag">PyTorch</span>
-          <span class="tech-tag">ONNX</span> <span class="tech-tag">TensorRT</span>
-        </div>
-      </div>
+      }
     </div>
   </section>
 
-  <section id="aimis" class="project-showcase">
-    <div class="project-inner">
-      <span class="label">{{ t().aimis.tag }}</span>
-      <h2>{{ t().aimis.label }}</h2>
-      <p class="project-long-desc">{{ t().aimis.desc }}</p>
-      <ul class="tech-list-horizontal">
-        <li>{{ t().aimis.feature1 }}</li>
-        <li>{{ t().aimis.feature2 }}</li>
-        <li>{{ t().aimis.feature3 }}</li>
+  <!-- ════════════════════ PROJETOS · BANDA ORTZION ════════════════════ -->
+  <section id="projetos" class="section band" aria-labelledby="proj-eyebrow">
+    <h2 id="proj-eyebrow" class="eyebrow">{{ t().projects.eyebrow }}</h2>
+    <p class="section-lead">
+      {{ t().projects.lead }}
+      <span class="lead-cta">
+        {{ t().projects.ctaPrefix }}
+        <a href="https://ortzion.com" target="_blank" rel="noopener">{{
+          t().projects.ctaLink
+        }}</a>
+      </span>
+    </p>
+
+    <div class="project-grid">
+      @for (card of t().projects.cards; track card.name) {
+        <article class="project-card">
+          <span class="project-status">{{ card.status }}</span>
+          <h3>{{ card.name }}</h3>
+          <p>{{ card.desc }}</p>
+          <div class="tech-tag-group">
+            @for (tag of card.tags; track tag) {
+              <span class="tech-tag">{{ tag }}</span>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ TRAJETÓRIA ═══════════════════════════ -->
+  <section id="trajetoria" class="section" aria-labelledby="track-eyebrow">
+    <h2 id="track-eyebrow" class="eyebrow">{{ t().track.eyebrow }}</h2>
+    <p class="section-lead">{{ t().track.lead }}</p>
+
+    <ol class="timeline">
+      @for (item of t().track.items; track item.title) {
+        <li class="timeline-item">
+          <span class="time-mark">{{ item.chip }}</span>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.desc }}</p>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- ═══════════════════════════ FORMAÇÃO ═════════════════════════════ -->
+  <section id="formacao" class="section" aria-labelledby="edu-eyebrow">
+    <h2 id="edu-eyebrow" class="eyebrow">{{ t().education.eyebrow }}</h2>
+
+    <div class="edu-layout">
+      <ul class="edu-list">
+        @for (item of t().education.items; track item.degree) {
+          <li class="edu-item">
+            <h3>{{ item.degree }}</h3>
+            <p>{{ item.school }} <span class="edu-period">· {{ item.period }}</span></p>
+          </li>
+        }
       </ul>
+
+      <aside class="edu-creds">
+        <h3>{{ t().education.credsTitle }}</h3>
+        @for (cred of t().education.creds; track cred) {
+          <p class="cred-line">{{ cred }}</p>
+        }
+        <h3 class="creds-langs-title">{{ t().education.langsTitle }}</h3>
+        <p class="cred-line">{{ t().education.langs }}</p>
+      </aside>
     </div>
   </section>
 
-<footer class="main-footer">
-  <div class="footer-content">
+  <!-- ══════════════════════════════ FOOTER ════════════════════════════ -->
+  <footer class="main-footer">
     <p class="footer-location">{{ t().footer.location }}</p>
     <div class="footer-links">
-      <a href="https://github.com/GabrielBRS" target="_blank">GitHub</a>
-      <a href="https://linkedin.com/in/gabriel-barros-rodrigues-de-sousa" target="_blank">LinkedIn</a>
+      <a href="https://github.com/GabrielBRS" target="_blank" rel="noopener"
+        >GitHub</a
+      >
+      <a
+        href="https://linkedin.com/in/gabriel-barros-rodrigues-de-sousa"
+        target="_blank"
+        rel="noopener"
+        >LinkedIn</a
+      >
+      <a href="https://ortzion.com" target="_blank" rel="noopener">Ortzion</a>
+      <a [href]="'mailto:' + t().footer.email">{{ t().footer.email }}</a>
     </div>
-    <p class="footer-legal">{{ t().footer.legal }}</p>
-  </div>
-</footer>
+    <p class="footer-legal">© {{ year }} · {{ t().footer.legal }}</p>
+  </footer>
 </main>
