@@ -31,6 +31,14 @@
       "digest": "63d079ed1312380d6121aa2bc1071b1a04685963f180e2102c20f92d6200d373",
       "namespace": "ortzion-home-page-front",
       "deployment": "ortzion-home-page-front"
+    },
+    {
+      "at": "2026-07-29T10:01:19-03:00",
+      "tag": "20260729-100106-bfb401c7",
+      "image": "local/personal-home-page-frontend:20260729-100106-bfb401c7",
+      "digest": "bfb401c754216283df48907383a8b59ecb3e8702e5c0cba5141ce3bc1f96e145",
+      "namespace": "site-pessoal",
+      "deployment": "site-pessoal"
     }
   ]
 }
